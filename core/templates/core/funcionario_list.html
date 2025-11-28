@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% block content %}
+  <h2>Funcionários</h2>
+  <a href="{% url 'core:criar_funcionario' %}">Cadastrar novo funcionário</a>
+  <ul>
+    {% for f in funcionarios %}
+      <li>{{ f.nome }} — {{ f.cargo }} — {{ f.empresa.nome }} — R$ {{ f.salario }}</li>
+    {% empty %}
+      <li>Nenhum funcionário cadastrado.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

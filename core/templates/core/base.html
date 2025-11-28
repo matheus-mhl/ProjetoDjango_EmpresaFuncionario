@@ -1,0 +1,213 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Sistema{% endblock %}</title>
+  <style>
+      /* Reset básico */
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background: #f0f2f5;
+          color: #333;
+          line-height: 1.6;
+      }
+
+      header {
+          background: #4c8cff;
+          color: #fff;
+          padding: 40px 20px;
+          text-align: center;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+
+      header h1 {
+          font-size: 36px;
+          margin-bottom: 10px;
+      }
+
+      header p {
+          font-size: 18px;
+      }
+
+      main {
+          max-width: 1000px;
+          margin: 40px auto;
+          padding: 0 20px;
+      }
+
+      .btn-container {
+          text-align: center;
+          margin: 20px 0;
+      }
+
+      .btn {
+          display: inline-block;
+          margin: 10px;
+          padding: 15px 25px;
+          background: #4c8cff;
+          color: #fff;
+          font-weight: bold;
+          text-decoration: none;
+          border-radius: 8px;
+          transition: 0.3s;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      }
+
+      .btn:hover {
+          background: #3673d1;
+          transform: translateY(-2px);
+      }
+
+      .card {
+          background: #fff;
+          border-radius: 12px;
+          padding: 25px;
+          margin-bottom: 30px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          transition: 0.3s;
+      }
+
+      .card:hover {
+          box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      }
+
+      h2 {
+          color: #4c8cff;
+          margin-bottom: 15px;
+      }
+
+      h3 {
+          color: #333;
+          margin-top: 15px;
+      }
+
+      ul, ol {
+          margin-left: 20px;
+          margin-bottom: 15px;
+      }
+
+      pre {
+          background: #f5f5f5;
+          padding: 15px;
+          border-radius: 8px;
+          overflow-x: auto;
+      }
+
+      a {
+          color: #4c8cff;
+          text-decoration: none;
+          font-weight: bold;
+      }
+
+      a:hover {
+          text-decoration: underline;
+      }
+
+      /* Responsividade */
+      @media (max-width: 600px) {
+          header h1 {
+              font-size: 28px;
+          }
+          header p {
+              font-size: 16px;
+          }
+          .btn {
+              padding: 12px 20px;
+          }
+      }
+  </style>
+</head>
+<body>
+
+  <header>
+      <h1>Bem-vindo ao Sistema de Empresas e Funcionários!</h1>
+      <p>Página inicial para apresentação do projeto</p>
+  </header>
+
+  <main>
+    <h2>Para acessar o ambiente virtual desenvovlido, favor clicar no botão abaixo:</h2>
+    <p>Usuário: admin1234</p>
+    <p>Senha: admin</p>
+      <div class="btn-container">
+          <a href="/admin" class="btn">Portal Admin</a>
+      </div>
+
+      <div class="card">
+          <h2>Integrantes</h2>
+          <ul>
+              <li>Matheus Horta Lago</li>
+              <li>Michael Gouveia</li>
+              <li>Arthur Zavoudakis</li>
+          </ul>
+      </div>
+
+      <div class="card">
+          <h2>Descrição do Projeto</h2>
+          <p>Este projeto é um <strong>Sistema de Gestão de Empresas e Funcionários</strong> desenvolvido em Django.  
+          Ele permite o gerenciamento de empresas, cadastro de funcionários, além de fornecer uma interface administrativa para administração dos registros via Django Admin.</p>
+          <p>Principais funcionalidades:</p>
+          <ul>
+              <li>Cadastro de empresas.</li>
+              <li>Cadastro de funcionários vinculados a cada empresa.</li>
+              <li>Administração completa via portal <code>/admin</code>.</li>
+          </ul>
+      </div>
+
+      <div class="card">
+          <h2>Models Criados</h2>
+          <h3>Empresa</h3>
+          <pre>
+nome = models.CharField(max_length=200)
+cnpj = models.CharField("CNPJ", max_length=20, blank=True)
+endereco = models.CharField(max_length=300, blank=True)
+email = models.EmailField(blank=True)
+telefone = models.CharField(max_length=20, blank=True)
+criado_em = models.DateTimeField(auto_now_add=True)
+          </pre>
+
+          <h3>Funcionário</h3>
+          <pre>
+empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='funcionarios')
+nome = models.CharField(max_length=200)
+cargo = models.CharField(max_length=100)
+salario = models.DecimalField(max_digits=10, decimal_places=2)
+data_admissao = models.DateField()
+email = models.EmailField(blank=True)
+ativo = models.BooleanField(default=True)
+          </pre>
+      </div>
+
+      <div class="card">
+          <h2>Tecnologias Usadas</h2>
+          <ul>
+              <li>Python 3.11</li>
+              <li>Django 4.2</li>
+              <li>HTML + CSS</li>
+              <li>SQLite (banco de dados padrão do Django)</li>
+          </ul>
+      </div>
+
+      <div class="card">
+          <h2>Instruções para Rodar</h2>
+          <ol>
+              <li>Clonar o projeto ou copiar a pasta para seu computador.</li>
+              <li>Criar e ativar ambiente virtual (opcional, mas recomendado).</li>
+              <li>Instalar dependências: <code>pip install -r requirements.txt</code></li>
+              <li>Rodar migrações: <code>python manage.py migrate</code></li>
+              <li>Criar superusuário: <code>python manage.py createsuperuser</code></li>
+              <li>Rodar o servidor: <code>python manage.py runserver</code></li>
+              <li>Acessar a página inicial: <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></li>
+              <li>Acessar o portal Admin: <a href="http://127.0.0.1:8000/admin">http://127.0.0.1:8000/admin</a></li>
+          </ol>
+      </div>
+  </main>
+
+</body>
+</html>
